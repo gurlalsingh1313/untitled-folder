@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import Spline from '@splinetool/react-spline';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -7,7 +8,8 @@ export default defineConfig({
   assetsInclude: ['**/*.glb'],
   build: {
     rollupOptions: {
-      external: ['@splinetool/react-spline'], // Ensure it's bundled
+      // Remove @splinetool/react-spline from 'external' if you want to bundle it
+      // external: ['@splinetool/react-spline'], 
     },
   },
 });
