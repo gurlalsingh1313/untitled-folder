@@ -1,9 +1,7 @@
 import emailjs from "@emailjs/browser";
 import { useRef, useState } from "react";
-import Spline from '@splinetool/react-spline';
-
 import useAlert from "../hooks/useAlert";
-import { Alert} from "../components";
+import { Alert } from "../components";
 
 const Contact = () => {
   const formRef = useRef();
@@ -136,37 +134,20 @@ const Contact = () => {
         </form>
       </div>
 
-      <div className='h-[350px] '>
-        {/* <Canvas
-          camera={{
-            position: [0, 0, 5],
-            fov: 75,
-            near: 0.1,
-            far: 1000,
-          }}
-        >
-          <directionalLight position={[0, 0, 1]} intensity={2.5} />
-          <ambientLight intensity={1} />
-          <pointLight position={[5, 10, 0]} intensity={2} />
-          <spotLight
-            position={[10, 10, 10]}
-            angle={0.15}
-            penumbra={1}
-            intensity={2}
-          />
-
-          <Suspense fallback={<Loader />}>
-            <Fox
-              currentAnimation={currentAnimation}
-              position={[0.5, 0.35, 0]}
-              rotation={[12.629, -0.6, 0]}
-              scale={[0.5, 0.5, 0.5]}
-            />
-          </Suspense>
-        </Canvas> */}
-        
-            <Spline scene="https://prod.spline.design/VUkhBiOv11gEEuhB/scene.splinecode" style={{transform: 'scale(0.8)'}}/>
-          
+      <div className='h-[350px]'>
+        {/* HTML Embed (iframe) */}
+        <div style={{ width: '100%', height: '100%' }}>
+          <iframe
+            src="https://prod.spline.design/VUkhBiOv11gEEuhB/scene.splinecode"
+            style={{
+              width: '100%',
+              height: '100%',
+              border: 'none',
+              transform: 'scale(0.8)',
+            }}
+            title="3D Scene"
+          ></iframe>
+        </div>
       </div>
     </section>
   );
