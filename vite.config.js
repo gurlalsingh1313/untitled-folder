@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import Spline from '@splinetool/react-spline';
 
 // https://vitejs.dev/config/
 export default defineConfig({
