@@ -1,13 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Spline from '@splinetool/react-spline';
 
 export default function Component() {
   const [isMounted, setIsMounted] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [isScriptLoaded, setIsScriptLoaded] = useState(false); // State to track script loading
 
   useEffect(() => {
     setIsMounted(true);
+
+    // Dynamically load the Spline viewer script
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = 'https://unpkg.com/@splinetool/viewer@1.9.46/build/spline-viewer.js';
+    script.onload = () => setIsScriptLoaded(true); // Mark script as loaded once it finishes loading
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script); // Clean up the script when the component unmounts
+    };
   }, []);
 
   const infoBlocks = [
@@ -41,8 +52,8 @@ export default function Component() {
     },
   ];
 
-  if (!isMounted) {
-    return null; // or a loading spinner
+  if (!isMounted || !isScriptLoaded) {
+    return null; // Wait until the script is loaded
   }
 
   return (
@@ -58,7 +69,6 @@ export default function Component() {
 
         </button>
       </div>
-
 
       {/* Dropdown Menu for Mobile */}
       {showMenu && (
@@ -83,8 +93,8 @@ export default function Component() {
 
       {/* Sky background */}
       <div className="relative z-30 w-full h-full items-center justify-center">
-        {/* Spline 3D Model */}
-        <div className="w-full lg:block hidden md:block justify-center text-center items-center md:absolute  md:bottom-[140px]">
+        {/* Spline 3D Model replaced by spline-viewer */}
+        <div className="w-full lg:block hidden md:block justify-center text-center items-center md:absolute md:bottom-[140px]">
           <div
             style={{
               transform: 'scale(1)', // Default scale for larger screens
@@ -92,7 +102,10 @@ export default function Component() {
             }}
             className="sm:scale-[0.7] sm:max-w-[90%] md:scale-[0.9] md:max-w-[100%] flex items-center justify-center"
           >
-            <Spline scene="https://prod.spline.design/VUkhBiOv11gEEuhB/scene.splinecode" />
+            {/* Embed the Spline Viewer once the script is loaded */}
+            {isScriptLoaded && (
+              <spline-viewer url="https://prod.spline.design/VUkhBiOv11gEEuhB/scene.splinecode"></spline-viewer>
+            )}
           </div>
         </div>
 
